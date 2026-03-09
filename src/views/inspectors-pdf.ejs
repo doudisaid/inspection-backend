@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* بما أن الخط مثبت في الويندوز، نستدعيه مباشرة بالاسم */
+        body {
+            /* جربنا وضع الأسماء الشائعة للخط Sultan Medium لضمان التطابق */
+            font-family: 'Sultan Medium', 'Sultan-Medium', 'SultanMedium', Arial, sans-serif !important;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #000;
+        }
+
+        /* ضمان تطبيق الخط على العناوين والجدول وكافة النصوص */
+        h1, h2, h3, h4, th, td, div, span, p {
+            font-family: 'Sultan Medium', 'Sultan-Medium', sans-serif !important;
+        }
+
+        .official-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .republic-name {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .ministry-name {
+            font-size: 19px;
+            margin: 0 0 10px 0;
+        }
+        .report-title-box {
+            border: 2px solid #000;
+            padding: 12px 35px;
+            width: fit-content;
+            margin: 20px auto;
+        }
+        .report-title {
+            font-size: 26px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 15px;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .date-text {
+            text-align: left;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        /* تكرار رأس الجدول في كل صفحة ومنع انقسام الصفوف */
+        thead { display: table-header-group; }
+        tr { page-break-inside: avoid; }
+    </style>
+</head>
+<body>
+
+    <div class="official-header">
+        <h2 class="republic-name">الجمهورية الجزائرية الديمقراطية الشعبية</h2>
+        <h3 class="ministry-name">وزارة التربية الوطنية</h3>
+        
+        <% if (logo) { %>
+            <img src="<%= logo %>" style="max-width: 90px; margin: 10px 0;">
+        <% } %>
+
+        <div class="report-title-box">
+            <h1 class="report-title">قائمة المفتشين</h1>
+        </div>
+    </div>
+
+    <div class="date-text">تاريخ الاستخراج: <%= date %></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">الرقم</th>
+                <th style="width: 35%;">اسم ولقب المفتش</th>
+                <th style="width: 30%;">التخصص</th>
+                <th style="width: 25%;">الرتبة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (inspectors && inspectors.length > 0) { %>
+                <% inspectors.forEach((inspector, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= inspector.name %></td>
+                        <td><%= inspector.specialty %></td>
+                        <td><%= inspector.rank %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">لا توجد بيانات متاحة حالياً للعرض</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+</html>
